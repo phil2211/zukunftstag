@@ -9,37 +9,37 @@
     <script>
         console.log("ich bin geladen");
         function check() {
-            var a = parseInt(document.getElementById("rechnung1").innerText);
-            var b = parseInt(document.getElementById("rechnung2").innerText);
-            if(a+b == document.getElementById("resultat").value) {
-                document.getElementById("hoch").style.visibility = "visible"
-                document.getElementById("runter").style.visibility = "hidden"
+            var a = parseInt(document.getElementsByName("rechnung1")[0].innerText);
+            var b = parseInt(document.getElementsByName("rechnung2")[0].innerText);
+            if(a+b == document.getElementsByName("resultat")[0].value) {
+                document.getElementsByName("hoch")[0].style.visibility = "visible"
+                document.getElementsByName("runter")[0].style.visibility = "hidden"
             } else {
-                document.getElementById("runter").style.visibility = "visible"
-                document.getElementById("hoch").style.visibility = "hidden"
+                document.getElementsByName("runter")[0].style.visibility = "visible"
+                document.getElementsByName("hoch")[0].style.visibility = "hidden"
             }
         }
 
         function machRechnung() {
-            document.getElementById("rechnung1").innerText = Math.floor(Math.random() * 100);
-            document.getElementById("rechnung2").innerText = Math.floor(Math.random() * 100);
+            document.getElementsByName("rechnung1")[0].innerText = Math.floor(Math.random() * 100);
+            document.getElementsByName("rechnung2")[0].innerText = Math.floor(Math.random() * 100);
         }
     </script>
     <h1>RECHNE</h1>
     <div id="aufgaben">
         <p id="aufgabe">
-            <span id="rechnung1"></span>
+            <span name="rechnung1"></span>
             <span> + </span>
-            <span id="rechnung2"></span>
+            <span name="rechnung2"></span>
             <span> = </span>
-            <input id="resultat" type="number" name="resultat" min="0" max="10000">
+            <input name="resultat" type="number" name="resultat" min="0" max="10000">
             <button onClick=check() type="button">PRÜFEN</button>
-            <img id="hoch" style=visibility:collapse; src="/images/hoch.png" alt="" width="50px">
-            <img id="runter" style=visibility:collapse; src="/images/runter.png" alt="" width="50px">
+            <img name="hoch" style=visibility:collapse; src="/images/hoch.png" alt="" width="50px">
+            <img name="runter" style=visibility:collapse; src="/images/runter.png" alt="" width="50px">
         </p>
     </div>
     <script>
-        machRechnung()
+         machRechnung()
     </script>
   </body>
 </html>
