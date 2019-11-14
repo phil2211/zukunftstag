@@ -8,21 +8,27 @@
   <body>
     <script>
         console.log("ich bin geladen");
-        function check() {
-            var a = parseInt(document.getElementsByName("rechnung1")[0].innerText);
-            var b = parseInt(document.getElementsByName("rechnung2")[0].innerText);
-            console.log(document.getElementsByName("runter"))
-            if(a+b == document.getElementsByName("resultat")[0].value) {
-                document.getElementsByName("hoch")[0].style.visibility = "visible"
-                document.getElementsByName("runter")[0].style.visibility = "hidden"
+        function check(event) {
+            console.log(event.target.zeile);
+            var zeile = event.target.zeile
+            var a = parseInt(document.getElementsByName("rechnung1")[zeile].innerText);
+            var b = parseInt(document.getElementsByName("rechnung2")[zeile].innerText);
+
+            if(a+b == document.getElementsByName("resultat")[zeile].value) {
+                document.getElementsByName("hoch")[zeile].style.visibility = "visible"
+                document.getElementsByName("runter")[zeile].style.visibility = "hidden"
                 machRechnung()
             } else {
-                document.getElementsByName("runter")[0].style.visibility = "visible"
-                document.getElementsByName("hoch")[0].style.visibility = "hidden"
+                document.getElementsByName("runter")[zeile].style.visibility = "visible"
+                document.getElementsByName("hoch")[zeile].style.visibility = "hidden"
             }
         }
 
         function machRechnung() {
+            var versteckt = document.createElement("input");
+            versteckt.setAttribute("type", "hidden");
+            versteckt.value = document.getElementsByName("aufgabe").length;
+
             var aufgabe = document.createElement("p");
             aufgabe.setAttribute("name", "aufgabe");
             
@@ -48,6 +54,7 @@
 
             var button = document.createElement("button");
             button.addEventListener("click", check);
+            button.zeile = document.getElementsByName("aufgabe").length
             button.setAttribute("type", "butten");
             button.innerText="PRÜFEN";
 
@@ -72,6 +79,7 @@
             aufgabe.appendChild(button);
             aufgabe.appendChild(hoch);
             aufgabe.appendChild(runter);
+            aufgabe.appendChild(versteckt);
 
             document.getElementById("aufgaben").appendChild(aufgabe);
         }
