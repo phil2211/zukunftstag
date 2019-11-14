@@ -11,9 +11,11 @@
         function check() {
             var a = parseInt(document.getElementsByName("rechnung1")[0].innerText);
             var b = parseInt(document.getElementsByName("rechnung2")[0].innerText);
+            console.log(document.getElementsByName("runter"))
             if(a+b == document.getElementsByName("resultat")[0].value) {
                 document.getElementsByName("hoch")[0].style.visibility = "visible"
                 document.getElementsByName("runter")[0].style.visibility = "hidden"
+                machRechnung()
             } else {
                 document.getElementsByName("runter")[0].style.visibility = "visible"
                 document.getElementsByName("hoch")[0].style.visibility = "hidden"
@@ -21,23 +23,61 @@
         }
 
         function machRechnung() {
-            document.getElementsByName("rechnung1")[0].innerText = Math.floor(Math.random() * 100);
-            document.getElementsByName("rechnung2")[0].innerText = Math.floor(Math.random() * 100);
+            var aufgabe = document.createElement("p");
+            aufgabe.setAttribute("name", "aufgabe");
+            
+            var rechnung1 = document.createElement("span");
+            rechnung1.setAttribute("name", "rechnung1");
+            rechnung1.innerText = Math.floor(Math.random() * 100);
+            
+            var operator = document.createElement("span");
+            operator.innerText = " + ";
+            
+            var rechnung2 = document.createElement("span");
+            rechnung2.setAttribute("name", "rechnung2");
+            rechnung2.innerText = Math.floor(Math.random() * 100);
+
+            var gleich = document.createElement("span");
+            gleich.innerText = " = ";
+
+            var resultat = document.createElement("input");
+            resultat.setAttribute("name", "resultat");
+            resultat.setAttribute("type", "number");
+            resultat.setAttribute("min", 0);
+            resultat.setAttribute("max", 10000);
+
+            var button = document.createElement("button");
+            button.addEventListener("click", check);
+            button.setAttribute("type", "butten");
+            button.innerText="PRÜFEN";
+
+            var hoch = document.createElement("img");
+            hoch.setAttribute("name", "hoch");
+            hoch.style.visibility = "collapse";
+            hoch.setAttribute("src", "/images/hoch.png");
+            hoch.setAttribute("width", "50px");
+
+            var runter = document.createElement("img");
+            runter.setAttribute("name", "runter");
+            runter.style.visibility = "collapse";
+            runter.setAttribute("src", "/images/runter.png");
+            runter.setAttribute("width", "50px");
+
+
+            aufgabe.appendChild(rechnung1);
+            aufgabe.appendChild(operator);
+            aufgabe.appendChild(rechnung2);
+            aufgabe.appendChild(gleich);
+            aufgabe.appendChild(resultat);
+            aufgabe.appendChild(button);
+            aufgabe.appendChild(hoch);
+            aufgabe.appendChild(runter);
+
+            document.getElementById("aufgaben").appendChild(aufgabe);
         }
     </script>
     <h1>RECHNE</h1>
-    <div id="aufgaben">
-        <p id="aufgabe">
-            <span name="rechnung1"></span>
-            <span> + </span>
-            <span name="rechnung2"></span>
-            <span> = </span>
-            <input name="resultat" type="number" name="resultat" min="0" max="10000">
-            <button onClick=check() type="button">PRÜFEN</button>
-            <img name="hoch" style=visibility:collapse; src="/images/hoch.png" alt="" width="50px">
-            <img name="runter" style=visibility:collapse; src="/images/runter.png" alt="" width="50px">
-        </p>
-    </div>
+    <div id="aufgaben" />
     <script>
          machRechnung()
     </script>
